@@ -173,6 +173,10 @@ body {
     margin-bottom: 30px;
   }
 
+  #text--tast {
+    width: 84%;
+  }
+
   .task--div {
     background: none;
   }
