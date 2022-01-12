@@ -26,12 +26,13 @@ To get a local copy up and running follow these simple example steps.
 - HTML
 - CSS
 - ES6 
+- WEBPACK
 
 ### Install
 
 To clone this repo: You need to have git installed in your system.
 
-git clone the repo in your terminal by: "git clone https://github.com/joskalenda/awesome-book-ES6.git"
+git clone the repo in your terminal by: "git clone https://github.com/joskalenda/to-do-list.git"
 
 cd into the folder
 
@@ -53,7 +54,7 @@ cd into the folder
 
 Contributions, issues, and feature requests are welcome!
 
-Feel free to check the [issues page](https://github.com/joskalenda/awesome-book-ES6/issues).
+Feel free to check the [issues page](https://github.com/joskalenda/to-do-list/issues/new.
 
 ## Show your support
 
