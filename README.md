@@ -41,7 +41,7 @@ cd into the folder
 
 ## Live demo
 
-- [See demo](https:)
+- [See demo](https://joskalenda.github.io/to-do-list/dist/)
 ## Authors
 
 👤 **Jos Kalenda**
