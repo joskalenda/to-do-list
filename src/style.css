@@ -176,12 +176,12 @@ body {
   }
 
   .header {
-    top: 60px;
+    top: 0;
     font-size: 28px;
   }
 
   .section--today {
-    margin: 180px 0;
+    margin: 30px 0;
     margin-bottom: 30px;
   }
 
