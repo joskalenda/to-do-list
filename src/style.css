@@ -1,0 +1,203 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Comic Sans MS", "Comic Sans", sans-serif;
+  text-align: center;
+  justify-content: center;
+  padding: 30px;
+  background-color: #000;
+}
+
+.header {
+  position: fixed;
+  top: 25px;
+  right: 0;
+  left: 0;
+  color: greenyellow;
+}
+
+.header span {
+  color: antiquewhite;
+}
+
+.section--today {
+  margin: 80px 0;
+  margin-bottom: 30px;
+}
+
+.today-div {
+  display: flex;
+  color: antiquewhite;
+  text-align: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  border: 1px solid rgb(83, 83, 83);
+}
+
+.today-div i {
+  display: block;
+  color: greenyellow;
+  padding: 12px 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+.section--add {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  text-align: center;
+  justify-content: center;
+  margin: 0;
+  border: 1px solid rgb(83, 83, 83);
+}
+
+.add--div {
+  color: antiquewhite;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0;
+  margin: 0;
+}
+
+.add--div input {
+  width: 90%;
+  height: 50px;
+  padding: 0 12px;
+  margin: 0;
+  border-radius: 50px;
+}
+
+.add--div i {
+  color: greenyellow;
+  padding: 0 10px;
+  margin: 0;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.add--div input::placeholder {
+  font-size: 20px;
+  color: rgb(146, 146, 146);
+  font-style: italic;
+}
+
+/* LIST SECTION TASK */
+.section--task {
+  color: #000;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  text-align: center;
+  justify-content: center;
+  margin: 40px 0;
+  border: 2px solid rgb(228, 225, 225);
+}
+
+.task--div {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  align-items: center;
+  margin: 3px;
+  padding: 0;
+  background-color: #fff;
+}
+
+.task--div i {
+  padding: 0 10px;
+  margin: 0;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.input--div {
+  width: 100%;
+  gap: 10px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  outline: none;
+}
+
+#text--tast {
+  color: rgb(68, 68, 68);
+  width: 90%;
+  height: 50px;
+  padding: 0 12px;
+  margin: 0;
+  border: 0;
+  background: #fff;
+  font-size: 24px;
+  border-bottom: 2px solid rgb(4, 241, 4);
+}
+
+#text--tast:focus {
+  outline: none;
+}
+
+.section--clear {
+  border: 2px solid whitesmoke;
+  background-color: white;
+}
+
+.section--clear button {
+  border: none;
+  background-color: white;
+  color: rgb(146, 146, 146);
+  font-size: 20px;
+  padding: 12px;
+  cursor: pointer;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  padding: 24px;
+  color: rgb(236, 230, 230);
+  background-color: rgb(66, 65, 65);
+}
+
+@media (min-width: 600px) {
+  body {
+    justify-content: center;
+    width: 700px;
+    margin: 0 auto;
+  }
+
+  .header {
+    top: 70px;
+    font-size: 28px;
+  }
+
+  .section--today {
+    margin: 180px 0;
+    margin-bottom: 30px;
+  }
+
+  #text--tast {
+    width: 90%;
+  }
+
+  .task--div {
+    background: none;
+  }
+
+  .task--div i {
+    color: greenyellow;
+  }
+
+  .input--div {
+    justify-content: left;
+  }
+}
