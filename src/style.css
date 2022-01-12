@@ -171,12 +171,12 @@ body {
 @media (min-width: 600px) {
   body {
     justify-content: center;
-    width: 700px;
+    width: 500px;
     margin: 0 auto;
   }
 
   .header {
-    top: 70px;
+    top: 60px;
     font-size: 28px;
   }
 
@@ -199,5 +199,9 @@ body {
 
   .input--div {
     justify-content: left;
+  }
+
+  .footer {
+    margin-top: 40px;
   }
 }
