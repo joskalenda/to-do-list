@@ -1,4 +1,5 @@
-import '../src/style.css';
+import './style.css';
+
 const taskSection = document.querySelector('.section--task');
 const TaskArray = [
   {
@@ -15,7 +16,7 @@ const TaskArray = [
     description: 'Join stand up meeting',
     index: 2,
     completed: true,
-  }
+  },
 ];
 
 const taskpopulate = () => {
@@ -32,7 +33,7 @@ const taskpopulate = () => {
     taskDiv.querySelector('#text--tast').value = items.description;
     taskDiv.querySelector('#check--box').value = items.completed;
     taskSection.appendChild(taskDiv);
-  })
+  });
 };
 
 taskpopulate();
