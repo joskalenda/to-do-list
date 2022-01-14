@@ -8,7 +8,7 @@ export const updateStorage = (newList) => {
 
 export const ClearStorage = () => {
   localStorage.clear();
-  location.reload();
+  window.location.reload();
 };
 const createTodoList = () => {
   const prevStorage = JSON.parse(localStorage.getItem(STORAGE_NAME));
