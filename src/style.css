@@ -82,6 +82,10 @@ body {
   cursor: pointer;
 }
 
+.task--div .trash {
+  display: none;
+}
+
 .add--div input::placeholder {
   font-size: 20px;
   color: rgb(146, 146, 146);
