@@ -1,5 +1,5 @@
 import { todoList, updateStorage } from './savelist.js';
-import setCompleted from './completeTask.js';
+import setCompleted from './marked.js';
 
 const taskSection = document.querySelector('.section--task');
 const removeTodoItem = (taskDiv) => {
