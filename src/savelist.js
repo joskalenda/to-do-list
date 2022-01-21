@@ -23,3 +23,5 @@ const createTodoList = () => {
 export const todoList = {
   data: createTodoList(),
 };
+
+export const savedListData = (id) => todoList.data.find((item) => item.index === parseInt(id, 10));
