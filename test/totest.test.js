@@ -14,8 +14,6 @@ describe('Manipulating the DOM', () => {
 
     createTodo(sample);
     const listToAdd = document.querySelectorAll('.task--div');
-    console.log(listToAdd);
-
     expect(listToAdd).toHaveLength(2);
   });
 
@@ -41,11 +39,9 @@ describe('Manipulating the DOM', () => {
       <div id="2" class="task--div"></div>
     `;
     document.querySelector('.main .section--task').innerHTML = StartingList;
-    // mock todoLit items
     localStorage.todoList = {
       data: [
         {
-          // this item should be removed
           description: 'Item 1',
           completed: true,
           index: 0,
@@ -62,19 +58,14 @@ describe('Manipulating the DOM', () => {
         },
       ],
     };
-    // Act
     removeCompleted();
-    // Assert
     const result = document.querySelectorAll('.task--div');
-    expect(result).toHaveLength(2); //
+    expect(result).toHaveLength(2);
     expect(result[0].id).toBe('0');
     expect(result[1].id).toBe('1');
-    // two should remain in the todoList
     expect(localStorage.todoList.data).toHaveLength(2);
-    // Item 2 should remain and be unmodified
     expect(localStorage.todoList.data[0].description).toBe('Item 2');
     expect(localStorage.todoList.data[0].completed).toBe(false);
-    // Item 2 should remain and be unmodified
     expect(localStorage.todoList.data[1].description).toBe('Item 3');
     expect(localStorage.todoList.data[1].completed).toBe(false);
   });
