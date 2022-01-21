@@ -23,6 +23,7 @@
   "homepage": "https://github.com/joskalenda/to-do-list#readme",
   "devDependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.16.8",
+    "@testing-library/jest-dom": "^5.16.1",
     "babel-eslint": "^10.1.0",
     "cli": "^1.0.1",
     "css-loader": "^6.5.1",
