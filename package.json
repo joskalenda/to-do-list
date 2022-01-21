@@ -5,7 +5,7 @@
   "private": "true",
   "main": "./index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --coverage",
     "watch": "webpack --watch",
     "start": "webpack serve --open ",
     "build": "webpack"
@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/joskalenda/to-do-list#readme",
   "devDependencies": {
+    "@babel/plugin-transform-modules-commonjs": "^7.16.8",
     "babel-eslint": "^10.1.0",
     "cli": "^1.0.1",
     "css-loader": "^6.5.1",
@@ -30,6 +31,7 @@
     "eslint-plugin-import": "^2.25.4",
     "hint": "^6.1.9",
     "html-webpack-plugin": "^5.5.0",
+    "jest": "^27.4.7",
     "style-loader": "^3.3.1",
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^21.0.0",
