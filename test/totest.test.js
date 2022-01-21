@@ -1,6 +1,7 @@
 import { createTodo, removeTodoItem, editTodoItem } from '../src/script.js';
 import { savedListData } from '../src/savelist.js';
 import setCompleted from '../src/marked.js';
+import * as localStorage from '../src/savelist.js';
 
 jest.mock('../src/savelist.js');
 
