@@ -2,7 +2,6 @@ import { createTodo, removeTodoItem } from '../src/script.js';
 
 describe('Manipulating the DOM', () => {
   it('This should add list to THE DOM', () => {
-    // Arrange
     const StartingList = '<div id="0" class="task--div"></div>';
     document.querySelector('.main .section--task').innerHTML = StartingList;
 
@@ -12,10 +11,9 @@ describe('Manipulating the DOM', () => {
       completed: false,
     };
 
-    // Act
     createTodo(sample);
     const listToAdd = document.querySelectorAll('.task--div');
-    // Assert
+
     expect(listToAdd).toHaveLength(2);
   });
 
