@@ -2,7 +2,7 @@ import { todoList, updateStorage } from './savelist.js';
 import setCompleted from './marked.js';
 
 const taskSection = document.querySelector('.section--task');
-const removeTodoItem = (taskDiv) => {
+export const removeTodoItem = (taskDiv) => {
   todoList.data.splice(taskDiv.id, 1);
   taskDiv.remove();
   updateStorage(todoList.data);
