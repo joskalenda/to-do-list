@@ -1,4 +1,4 @@
-import { todoList, updateStorage } from './savelist.js';
+import { savedListData, todoList, updateStorage } from './savelist.js';
 import setCompleted from './marked.js';
 
 const taskSection = document.querySelector('.section--task');
@@ -14,9 +14,12 @@ const displayTrash = (taskDiv) => {
   ellipsis.style.display = 'none';
 };
 
-const editTodoItem = (id, newValue) => {
-  todoList.data[parseInt(id, 10)].description = newValue;
+export const editTodoItem = (e, taskDiv) => {
+  const item = savedListData(taskDiv.id);
+  const newValue = e.currentTarget.value.trim();
+  item.description = newValue;
   updateStorage(todoList.data);
+  e.currentTarget.value = newValue;
 };
 
 export const createTodo = (item) => {
@@ -41,9 +44,7 @@ export const createTodo = (item) => {
   const ellipsis = taskDiv.querySelector('#elips');
   const trash = taskDiv.querySelector('.task--div .trash');
 
-  inputBox.addEventListener('change', (e) => {
-    editTodoItem(taskDiv.id, e.currentTarget.value);
-  });
+  inputBox.addEventListener('change', (e) => editTodoItem(e, taskDiv));
 
   inputBox.value = item.description;
   inputBox.style.textDecoration = (item.completed && 'line-through') || 'none';
