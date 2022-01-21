@@ -1,10 +1,10 @@
-import { createTodo } from '../src/script';
+import { createTodo } from '../src/script.js';
 
 describe('Manipulating the DOM', () => {
   it('This should add list to THE DOM', () => {
     // Arrange
-    const Starting_List = '<div id="0" class="task--div"></div>';
-    document.querySelector('.main .section--task').innerHTML = Starting_List;
+    const StartingList = '<div id="0" class="task--div"></div>';
+    document.querySelector('.main .section--task').innerHTML = StartingList;
 
     const sample = {
       description: 'TEST 2 ADDED TO LIST',
@@ -14,9 +14,8 @@ describe('Manipulating the DOM', () => {
 
     // Act
     createTodo(sample);
-    const list_to_add = document.querySelectorAll('.task--div');
+    const listToAdd = document.querySelectorAll('.task--div');
     // Assert
-    expect(list_to_add).toHaveLength(2);
+    expect(listToAdd).toHaveLength(2);
   });
-
 });
