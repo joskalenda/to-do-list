@@ -4,7 +4,7 @@ import {
   editTodoItem,
   removeCompleted,
 } from '../src/script.js';
-import { savedListData } from '../src/savelist.js';
+import { getItem } from '../src/savelist.js';
 import setCompleted from '../src/marked.js';
 import * as localStorage from '../src/savelist.js';
 
@@ -54,7 +54,7 @@ describe('Manipulating the DOM', () => {
       },
     };
 
-    savedListData.mockImplementation(() => ListToEdit);
+    getItem.mockImplementation(() => ListToEdit);
 
     editTodoItem(MockOjbect, ListToEdit);
 
