@@ -1,74 +1,155 @@
-import { savedListData, todoList, updateStorage } from './savelist.js';
 import setCompleted from './marked.js';
+import { todoList, updateStorage, getItem } from './savelist.js';
 
-const taskSection = document.querySelector('.section--task');
-export const removeTodoItem = (taskDiv) => {
-  todoList.data.splice(taskDiv.id, 1);
-  taskDiv.remove();
+const todoContainerElement = document.querySelector('.todo-container .todo-items-container');
+
+export const removeTodoItem = (todoElem) => {
+  todoList.data.splice(todoElem.id, 1);
+  todoElem.remove();
+  // reset todo elements indexes
+  todoContainerElement.querySelectorAll('.todo-item')
+    .forEach((item, idx) => { item.id = idx; });
   updateStorage(todoList.data);
 };
-const displayTrash = (taskDiv) => {
-  const trash = taskDiv.querySelector('.task--div .trash');
-  const ellipsis = taskDiv.querySelector('#elips');
-  trash.style.display = 'block';
-  ellipsis.style.display = 'none';
-};
 
-export const editTodoItem = (e, taskDiv) => {
-  const item = savedListData(taskDiv.id);
+export const editTodoItem = (e, todoElem) => {
+  const item = getItem(todoElem.id);
   const newValue = e.currentTarget.value.trim();
   item.description = newValue;
   updateStorage(todoList.data);
   e.currentTarget.value = newValue;
 };
 
+let active = false;
+let offsetLeft;
+let offsetTop;
+let offsetFromMoveBtnX;
+let offsetFromMoveBtnY;
+
+const PLACEHOLDER = document.createElement('div');
+PLACEHOLDER.id = 'placeholder';
+PLACEHOLDER.style.position = 'absolute';
+PLACEHOLDER.style.width = '384px';
+PLACEHOLDER.style.outline = '1px solid black';
+// PLACEHOLDER.style.height = '52px';
+
 export const createTodo = (item) => {
-  const taskDiv = document.createElement('div');
-  taskDiv.classList.add('task--div');
-  taskDiv.id = item.index;
-  taskDiv.innerHTML = `
-  <div class="input--div">
-    <input id="check--box" type="checkbox">
-    <input id="text--tast" type="text">
-  </div>
-  <div class="trash">
-    <i class="fa fa-trash-o"></i>
-  </div>
+  const todoElem = document.createElement('div');
+  todoElem.id = item.index;
+  todoElem.classList.add('todo-item');
+  const innerHtml = `
+      <input type="checkbox">
+      <div class="input-box">
+        <input type="text">
+        <div class="icon delete">
+          <i class="far fa-trash-alt"></i>
+        </div>
+      </div>
+      <div class="icon move">
+        <i class="fas fa-ellipsis-v"></i>
+      </div>
+      `;
 
-  <div id="elips">
-  <i class="fa fa-ellipsis-v"></i>
-  </div>`;
+  todoElem.innerHTML = innerHtml;
+  const inputBox = todoElem.querySelector('.input-box input');
+  const checkboxInput = todoElem.querySelector('input[type="checkbox"]');
+  const deleteBtn = todoElem.querySelector('.icon.delete');
+  const moveBtn = todoElem.querySelector('.icon.move');
 
-  const inputBox = taskDiv.querySelector('#text--tast');
-  const checkboxInput = taskDiv.querySelector('#check--box');
-  const ellipsis = taskDiv.querySelector('#elips');
-  const trash = taskDiv.querySelector('.task--div .trash');
-
-  inputBox.addEventListener('change', (e) => editTodoItem(e, taskDiv));
+  inputBox.addEventListener('change', (e) => editTodoItem(e, todoElem));
+  inputBox.addEventListener('focus', () => {
+    todoElem.classList.add('highlight');
+    inputBox.classList.remove('checked');
+  });
+  inputBox.addEventListener('blur', () => {
+    todoElem.classList.remove('highlight');
+    if (getItem(todoElem.id).completed) {
+      inputBox.classList.add('checked');
+    }
+  });
 
   inputBox.value = item.description;
-  inputBox.style.textDecoration = (item.completed && 'line-through') || 'none';
-  inputBox.style.color = (item.completed && 'gray') || 'black';
-  inputBox.disabled = item.completed;
+  if (item.completed) {
+    inputBox.classList.add('checked');
+  }
 
   checkboxInput.checked = item.completed;
 
   checkboxInput.addEventListener('change', (e) => {
-    setCompleted(e, taskDiv.id, inputBox);
+    setCompleted(e, getItem(todoElem.id), inputBox);
   });
 
-  ellipsis.addEventListener('mousedown', () => {
-    displayTrash(taskDiv);
+  deleteBtn.addEventListener('mousedown', () => {
+    removeTodoItem(todoElem);
   });
 
-  trash.addEventListener('mousedown', () => {
-    removeTodoItem(taskDiv);
+  let lastIndex = null;
+
+  const mouseMoved = (e) => {
+    e.preventDefault();
+    if (!active) return;
+    offsetLeft = e.pageX - (todoContainerElement.getBoundingClientRect().left + window.scrollX);
+    offsetTop = e.pageY - (todoContainerElement.getBoundingClientRect().top + window.scrollY);
+    PLACEHOLDER.style.left = `${offsetLeft - offsetFromMoveBtnX}px`;
+    PLACEHOLDER.style.top = `${offsetTop - offsetFromMoveBtnY}px`;
+
+    const todoItemIndex = Math.floor(offsetTop / 52);
+
+    if (lastIndex !== todoItemIndex && todoItemIndex >= 0) {
+      todoElem.remove();
+      todoContainerElement.insertBefore(todoElem, todoContainerElement.children[todoItemIndex]);
+      lastIndex = todoItemIndex;
+
+      const elements = Array.from(document.querySelectorAll('.todo-item:not(#placeholder)'));
+      todoList.data = elements.map((elem, idx) => {
+        elem.id = idx;
+        return {
+          description: elem.querySelector('input[type="text"]').value,
+          complted: elem.querySelector('input[type="checkbox"]').checked,
+          index: idx,
+        };
+      });
+      updateStorage(todoList.data);
+    }
+  };
+
+  moveBtn.addEventListener('mousedown', (e) => {
+    e.preventDefault();
+    active = true;
+    document.addEventListener('mousemove', mouseMoved);
+    offsetFromMoveBtnX = e.pageX - (todoElem.getBoundingClientRect().left + window.scrollX);
+    offsetFromMoveBtnY = e.pageY - (todoElem.getBoundingClientRect().top + window.scrollY);
+
+    offsetLeft = e.pageX - (todoContainerElement.getBoundingClientRect().left + window.scrollX);
+    offsetTop = e.pageY - (todoContainerElement.getBoundingClientRect().top + window.scrollY);
+    PLACEHOLDER.style.left = `${offsetLeft - offsetFromMoveBtnX}px`;
+    PLACEHOLDER.style.top = `${offsetTop - offsetFromMoveBtnY}px`;
+
+    // const newNode = todoElem.cloneNode(true);
+    PLACEHOLDER.innerHTML = todoElem.innerHTML;
+    PLACEHOLDER.querySelector('input[type="text"]').value = inputBox.value;
+    PLACEHOLDER.classList.add('todo-item');
+    todoElem.classList.add('selected');
+    todoContainerElement.appendChild(PLACEHOLDER);
   });
-  taskSection.appendChild(taskDiv);
+
+  document.addEventListener('mouseup', () => {
+    active = false;
+    todoElem.classList.remove('selected');
+    document.removeEventListener('mousemove', mouseMoved);
+    PLACEHOLDER.remove();
+  });
+
+  todoContainerElement.appendChild(todoElem);
 };
 
+// NOTE: disable drag start for firefox
+todoContainerElement.addEventListener('dragstart', (e) => {
+  e.preventDefault();
+});
+
 export const onSubmit = () => {
-  const addTodoInput = document.querySelector('.add--div input');
+  const addTodoInput = document.getElementById('add-todo-input');
   if (!addTodoInput.value) {
     return;
   }
@@ -77,7 +158,6 @@ export const onSubmit = () => {
     completed: false,
     index: todoList.data.length,
   };
-
   todoList.data.push(newItem);
   updateStorage(todoList.data);
   createTodo(newItem, todoList.data.length - 1);
@@ -87,11 +167,16 @@ export const onSubmit = () => {
 
 export const removeCompleted = () => {
   const notCompletedList = todoList.data.filter((i) => !i.completed);
+  const todoElements = document.querySelectorAll('.todo-item');
   todoList.data
     .filter((item) => item.completed)
-    .map((item) => document.querySelectorAll('div.task--div')[item.index])
-    .map((element) => element.remove());
+    .map((item) => Array.from(todoElements).find((i) => parseInt(i.id, 10) === item.index))
+    .forEach((element) => element.remove());
+
   todoList.data = notCompletedList;
   updateStorage(todoList.data);
-  taskSection.querySelectorAll('.task--div').forEach((item, idx) => { item.id = idx; });
+
+  // reset todo elements indexes
+  todoContainerElement.querySelectorAll('.todo-item')
+    .forEach((item, idx) => { item.id = idx; });
 };

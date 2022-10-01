@@ -5,34 +5,38 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://kit.fontawesome.com/29d7bf5b00.js" crossorigin="anonymous"></script>
+
   <title>To do list</title>
 <script defer src="main.js"></script></head>
 <body>
-  <header class="header">
-    <h1>TODO<span>list</span></h1>
-  </header>
-  <main class="main">
-    <section class="section--today">
-      <div class="today-div">
-        <h2>Today's To Do</h2>
-        <i class="fa fa-refresh"></i>
+    <div class="todo-container">
+      <header class="header">
+        <h1>TODO<span>list</span></h1>
+        <div>
+          <em>. Drag and drop enabled</em>
+          <em>. Delete enabled</em>
+          <em>. Edit enabled</em>
+        </div>
+      </header>
+      <div class="title">
+        <p>Jos's To Do</p>
+        <div id="refresh-todo-icon">
+          <i class="fas fa-sync-alt"></i>
+        </div>
       </div>
-    </section>
-    <section class="section--add">
-      <div class="add--div">
-        <input type="text" name="name" class="add--task" placeholder="Add your list...">
-        <i class="fa fa-long-arrow-left"></i>
+      <form autocomplete="off" action="#" class="add-todo">
+        <input id="add-todo-input" type="text" placeholder="Add to your list...">
+        <input type="submit" hidden>
+        <div id="add-todo-btn" class="icon">
+          <i class="fas fa-level-down-alt fa-rotate-90"></i>
+        </div>
+      </form>
+      <div class="todo-items-container">
       </div>
-    </section>
-    <section class="section--task">
-    </section>
-    <section class="section--clear">
-      <button type="button" id="clear--checked">Clear All Completed</button>
-    </section>
-  </main>
-  <footer class="footer">
-    <p>Copyright...2022</p>
-  </footer>
-  <script src="./index.js"></script>
-</body>
+      <div class="clear-completed-container">
+        <button type="button" id="clear-completed-btn" class="clear-btn">Clear all completed</button>
+      </div>
+    </div>
+  </body>
 </html>

@@ -8,12 +8,22 @@ body {
   font-family: "Comic Sans MS", "Comic Sans", sans-serif;
   text-align: center;
   justify-content: center;
-  padding: 30px;
   background-color: #000;
 }
 
+a,
+button,
+input {
+  font-family: inherit;
+}
+
+input {
+  outline: none;
+  border: none;
+  font-size: 1rem;
+}
+
 .header {
-  position: fixed;
   top: 25px;
   right: 0;
   left: 0;
@@ -24,49 +34,99 @@ body {
   color: antiquewhite;
 }
 
+.header div {
+  display: flex;
+  color: rgba(128, 128, 128, 0.598);
+  flex-direction: column;
+}
+
 .section--today {
   margin: 80px 0;
   margin-bottom: 30px;
 }
 
-.today-div {
+.todo-container {
   display: flex;
+  flex-direction: column;
+  gap: 1px;
+  margin: 100px 20px;
+  border-radius: 0.9rem;
+  overflow: hidden;
+}
+
+.todo-container input {
+  background-color: transparent;
+}
+
+.todo-container .icon {
+  padding: 0.4em;
+  cursor: pointer;
+  color: rgb(177, 177, 177);
+}
+
+.todo-container .icon.move {
+  cursor: move;
+}
+
+.todo-container .icon:hover {
+  color: rgb(85, 85, 85);
+}
+
+.todo-container .title {
+  display: flex;
+  align-items: center;
   color: antiquewhite;
   text-align: center;
   justify-content: space-between;
-  padding: 0 12px;
+  padding: 6px;
   border: 1px solid rgb(83, 83, 83);
+  margin: 13px 0;
 }
 
-.today-div i {
-  display: block;
+#refresh-todo-icon {
+  padding: 0.4em;
   color: greenyellow;
-  padding: 12px 0;
-  margin: 0;
-  cursor: pointer;
+  opacity: 0;
+  transition: opacity 120ms;
+  animation: refresh-rotation 1s infinite linear;
 }
 
-.section--add {
-  width: 100%;
-  height: 100%;
-  padding: 0;
-  text-align: center;
-  justify-content: center;
-  margin: 0;
-  border: 1px solid rgb(83, 83, 83);
+#refresh-todo-icon.active {
+  opacity: 1;
 }
 
-.add--div {
-  color: antiquewhite;
+#refresh-todo-icon i {
+  vertical-align: middle;
+}
+
+@keyframes refresh-rotation {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.todo-container .title p {
+  flex-grow: 1;
+  font-weight: 600;
+}
+
+.add-todo {
   display: flex;
+  flex-grow: 0;
+  padding: 0;
+  padding-left: 1rem;
   text-align: center;
   align-items: center;
   justify-content: space-between;
-  padding: 0;
-  margin: 0;
+  margin: 10px 0;
+  margin-top: 0;
+  border: 1px solid rgb(83, 83, 83);
 }
 
-.add--div input {
+.add-todo input {
+  flex-grow: 1;
+  background-color: white;
+  font-style: italic;
   width: 90%;
   height: 50px;
   padding: 0 12px;
@@ -74,7 +134,9 @@ body {
   border-radius: 50px;
 }
 
-.add--div i {
+.todo-container .add-todo .icon {
+  justify-content: center;
+  align-items: center;
   color: greenyellow;
   padding: 0 10px;
   margin: 0;
@@ -82,126 +144,102 @@ body {
   cursor: pointer;
 }
 
-.task--div .trash {
-  display: none;
-}
-
-.add--div input::placeholder {
-  font-size: 20px;
-  color: rgb(146, 146, 146);
-  font-style: italic;
-}
-
-/* LIST SECTION TASK */
-.section--task {
-  color: #000;
-  width: 100%;
-  height: 100%;
+.todo-items-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  position: relative;
   padding: 0;
   text-align: center;
   justify-content: center;
-  margin: 40px 0;
   border: 2px solid rgb(228, 225, 225);
 }
 
-.task--div {
+.todo-item {
   display: flex;
+  align-items: center;
+  gap: 1rem;
+  height: 3rem;
+  background-color: white;
+  padding-left: 1rem;
   justify-content: space-between;
   text-align: center;
-  align-items: center;
-  margin: 3px;
-  padding: 0;
-  background-color: #fff;
 }
 
-.task--div i {
-  padding: 0 10px;
-  margin: 0;
-  font-size: 24px;
-  cursor: pointer;
+.todo-item.selected {
+  visibility: hidden;
 }
 
-.input--div {
-  width: 100%;
-  gap: 10px;
+.todo-item.highlight {
+  background-color: #f4f5cc;
+}
+
+.todo-item .input-box {
   display: flex;
-  text-align: center;
-  justify-content: center;
   align-items: center;
-  border: none;
-  outline: none;
+  justify-content: space-between;
+  flex-grow: 1;
+  height: 100%;
+  position: relative;
 }
 
-#text--tast {
-  color: rgb(68, 68, 68);
-  width: 90%;
-  height: 50px;
-  padding: 0 12px;
-  margin: 0;
-  border: 0;
-  background: #fff;
-  font-size: 24px;
-  border-bottom: 2px solid rgb(4, 241, 4);
+.todo-item .input-box input {
+  height: 100%;
+  flex-grow: 1;
 }
 
-#text--tast:focus {
-  outline: none;
+.todo-item .input-box input.checked {
+  text-decoration: line-through;
+  color: gray;
 }
 
-.section--clear {
-  border: 2px solid whitesmoke;
-  background-color: white;
+.clear-completed-container {
+  background-color: whitesmoke;
 }
 
-.section--clear button {
-  border: none;
-  background-color: white;
-  color: rgb(146, 146, 146);
-  font-size: 20px;
-  padding: 12px;
-  cursor: pointer;
-}
-
-.footer {
-  position: fixed;
-  bottom: 0;
+.todo-item .input-box .delete {
+  position: absolute;
+  display: none;
   right: 0;
-  left: 0;
-  padding: 24px;
-  color: rgb(236, 230, 230);
-  background-color: rgb(66, 65, 65);
+}
+
+.todo-item .input-box:focus-within .delete {
+  display: block;
+}
+
+.todo-item .input-box .delete:hover {
+  color: crimson;
+}
+
+.clear-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 1rem;
+  margin: 0 auto;
+  display: block;
+  padding: 0.8em;
+}
+
+.clear-btn:hover {
+  text-decoration: underline;
 }
 
 @media (min-width: 600px) {
   body {
     justify-content: center;
-    width: 700px;
-    margin: 0 auto;
   }
 
   .header {
-    top: 70px;
     font-size: 28px;
   }
 
-  .section--today {
-    margin: 180px 0;
-    margin-bottom: 30px;
+  .header div {
+    font-size: 14px;
   }
 
-  #text--tast {
-    width: 90%;
-  }
-
-  .task--div {
-    background: none;
-  }
-
-  .task--div i {
-    color: greenyellow;
-  }
-
-  .input--div {
-    justify-content: left;
+  .todo-container {
+    width: 25rem;
+    margin: 100px auto;
   }
 }
